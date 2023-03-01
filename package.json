@@ -25,6 +25,7 @@
     "react-social-login-buttons": "^3.6.1",
     "reactstrap": "^9.1.5",
     "sass": "^1.58.0",
+    "styled-components": "^5.3.6",
     "use-react-router-breadcrumbs": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
