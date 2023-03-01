@@ -32,7 +32,8 @@ export const ProductsList = () => {
       cell: (row) => (
         <div>
           <img
-            src={`http://localhost:3900/${row.image}`}
+            // src={`http://localhost:3900/${row.image}`}
+            src={`https://mern-shop-api.onrender.com/${row.image}`}
             alt={row.name}
             className="thumb"
           />
