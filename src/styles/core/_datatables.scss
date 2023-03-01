@@ -1,0 +1,13 @@
+.thumb {
+  width: 25px;
+  max-height: 50px;
+  border-radius: 10%;
+  margin: 10px;
+  object-fit: cover;
+}
+.green {
+  color: $theme-green;
+}
+.red {
+  color: $theme-bright-red;
+}

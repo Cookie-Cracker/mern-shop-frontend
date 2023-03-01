@@ -1,0 +1,48 @@
+.brands {
+  .b-list {
+    .brand-link {
+      @include media-breakpoint-down("sm") {
+        .delete {
+          display: flex;
+        }
+      }
+      @include media-breakpoint-up("lg") {
+        .delete {
+          display: none;
+        }
+      }
+      height: 100%;
+
+      text-decoration: none !important;
+      color: $theme-black;
+      // & > .delete {
+      //   display: none;
+      // }
+      &:hover {
+        background-color: $secondary-bg;
+        border-radius: $border-radius-default;
+        @include box-shadow(rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px);
+        @include transition(all 0.5s ease-in-out);
+
+        .delete {
+          display: flex;
+        }
+      }
+
+      //   .brand-desc {
+      //     @include text-ellipsis(2);
+      //   }
+
+      .brand-logo {
+        width: 65px;
+        border-radius: $border-radius-2xl;
+        margin-right: 10px;
+        float: left;
+      }
+      .brand-desc {
+        font-style: italic;
+        font-weight: lighter;
+      }
+    }
+  }
+}

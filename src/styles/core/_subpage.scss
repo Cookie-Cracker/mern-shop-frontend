@@ -1,0 +1,12 @@
+.subpage {
+  .subpage-header {
+    @include flex();
+    align-items: center;
+    border-bottom: $border-primary;
+    padding: 10px 0;
+    justify-content: space-between;
+  }
+  .subpage-body {
+    margin: 20px 0;
+  }
+}

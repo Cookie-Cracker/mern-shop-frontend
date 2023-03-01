@@ -1,0 +1,5 @@
+.shop-toolbar {
+  border-radius: $border-radius-primary;
+  @include box-shadow(rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px);
+  @include transition(all 0.5s ease-in-out);
+}

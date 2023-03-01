@@ -1,0 +1,25 @@
+.footer {
+  flex-shrink: 0;
+  border-top: $border-default;
+}
+.footer-menu {
+  height: 40px;
+}
+.copyrigth {
+  color: $theme-light-black;
+  padding: 10px 15px;
+  margin: 10px 3px;
+}
+.footer-social-icons {
+  i {
+    font-size: 1.2rem !important;
+    color: $theme-light-black;
+    transition: 0.5s;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+      font-size: 1.4rem !important;
+      color: $theme-green;
+    }
+  }
+}

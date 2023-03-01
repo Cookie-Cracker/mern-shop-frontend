@@ -1,0 +1,11 @@
+.img-preview-show {
+  text-align: center;
+  display: block;
+  & > img {
+    // width: 100px;
+    width: 40%;
+  }
+}
+.img-preview-hide {
+  display: none;
+}
