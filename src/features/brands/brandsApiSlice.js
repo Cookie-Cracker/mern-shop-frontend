@@ -51,7 +51,10 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
                 body: {
                     ...initialBrandData
                 }
-            })
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'Brand', id: 'LIST' }
+            ]
         }),
 
         deleteBrand: builder.mutation({
@@ -86,7 +89,7 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
         }),
 
         getBrandsPaginated: builder.query({
-            query: ({ brand = '', size = 10, page = 1, isActive = true }) => `/api/brand/q?brand=${brand}&page=${page}&size=${size}&active=${isActive}`,
+            query: ({ brand = '', size = 10, page = 1, isActive = true }) => `/api/brand/search?brand=${brand}&page=${page}&size=${size}&active=${isActive}`,
             // transformResponse: ({data}) => {
             //     const loadedBrands = data.itemsList.map(brand => {
             //         brand.id = brand._id

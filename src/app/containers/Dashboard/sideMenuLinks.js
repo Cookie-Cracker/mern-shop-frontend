@@ -10,7 +10,7 @@ module.exports = {
     ],
     moderator: [
         { to: "/dashboard/categories", name: "Categories", prefix: "/dashboard" },
-        { to: "/dashboard/brand", name: "Brand", prefix: "/dashboard" },
+        { to: "/dashboard/brands", name: "Brand", prefix: "/dashboard" },
     ]
 
 }

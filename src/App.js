@@ -26,7 +26,7 @@ function App() {
       <Route path='/' element={<Layout />} >
         {/* public routes */}
 
-        <Route path='/' element={<HomePage />} />
+        <Route index element={<HomePage />} />
         <Route path="signin" element={<SignIn />} />
         <Route path='shop' element={<Shop />} />
         <Route path='*' element={<Page404 />} />
@@ -34,10 +34,11 @@ function App() {
 
         <Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-            {/* <Route index path='home' element={<HomePage />} /> */}
+
 
             <Route path='dashboard' element={<DashLayout />}>
-              {/* <Route index element={<Welcome />} /> */}
+
+
               <Route index element={<Account />} />
               <Route path='categories'>
                 <Route index element={<Categories />} />
@@ -56,10 +57,13 @@ function App() {
 
               {/* Admin ONLY */}
               <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+
+
                 <Route path='users'>
                   <Route index element={<UsersList />} />
                   <Route path='new' element={<NewUserForm />} />
                 </Route>
+
 
               </Route>
               <Route path='*' element={<Page404 />} />

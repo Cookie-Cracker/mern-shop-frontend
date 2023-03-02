@@ -6,6 +6,7 @@ import { selectCurrentToken } from "./authSlice";
 import { useRefreshMutation } from "./authApiSlice";
 import { Outlet } from "react-router-dom";
 import Page404 from "../../components/Common/Page404";
+import LoadingBar from "../../components/Common/Spinner/Loading";
 
 const PersistLogin = () => {
   const [persist] = usePersist();
@@ -49,7 +50,7 @@ const PersistLogin = () => {
   } else if (isLoading) {
     //persist: yes, token: no
     // console.log("loading");
-    content = <p>Loading...</p>;
+    content = <LoadingBar />;
   } else if (isError) {
     //persist: yes, token: no
     // console.log("error");

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import BrandSearch from './BrandSearch'
 import { selectCurrentSearch } from './brandSlice'
 import BrandPag from './BrandPag'
+import LoadingBar from '../../components/Common/Spinner/Loading'
 
 const BrandsList = () => {
     const navigate = useNavigate()
@@ -50,7 +51,7 @@ const BrandsList = () => {
 
     let content;
     if (isLoading) {
-        content = <p>Loading...</p>;
+        content = <LoadingBar />;
         // } else if (isSuccess) {
     } else if (isSearchSuceess) {
         // console.log('searchResult', searchResult.data)
@@ -90,96 +91,70 @@ const BrandsList = () => {
                     <BrandSearch />
 
                     <div className="pb-4">
-                        Searching: {`${searchTerm}`}
-                        <Badge color="success">{paginator.itemCount} </Badge>
+                        {searchTerm && searchTerm.length > 0 && `Result for: ${searchTerm}${' '}`}
+                        <Badge color="success">{paginator.itemCount}</Badge>
                         {" brands"}
                     </div>
 
-                    <div className='mb-2'>
-                        <span className='p-1 m-1'>Per Page:</span>
-                        <select className='p-1 m-1' onChange={(e) => setPageSize(e.target.value)}>
-                            {pageSizesOptions.map((size) =>
+                    {(itemsList
+                        && itemsList.length > 0)
+                        && <div className='mb-2'>
+                            <span className='p-1 m-1'>Per Page:</span>
+                            <select className='p-1 m-1' onChange={(e) => setPageSize(e.target.value)}>
+                                {pageSizesOptions.map((size) =>
 
-                                <option key={size} value={size}>{size}</option>)}
-                        </select>
+                                    <option key={size} value={size}>{size}</option>)}
+                            </select>
 
+                            <Button
+                                size='sm'
+                                color='success'
 
-
-                        <span>{from} - {to}  / {paginator.itemCount}</span>
-
-                        {/* START */}
-                        <Button
-                            className='p-1 m-1'
-                            onClick={() => setPage(1)}
-                            disabled={page === 1}
-                        >{"<|"}</Button>
-
-
-
-                        <Button
-                            className='p-1 m-1'
-                            disabled={page === 1}
-                            onClick={() => setPage((prev) => prev - 1)}
-
-                        >{"<"}</Button>
-
-                        {/* NEXT PAGE */}
-                        <Button
-                            className='p-1 m-1'
-
-                            onClick={() => setPage((prev) => prev + 1)}
-                            disabled={paginator.currentPage === (paginator.pageCount)}
-
-
-                        >{">"}</Button>
-
-
-                        <Button
-                            className='p-1 m-1'
-                            disabled={paginator.currentPage === (paginator.pageCount)}
-                            onClick={() => setPage(paginator.pageCount)}
-                        >{"|>"}</Button>
-                        {/* 
-
-                        <Pagination>
-                            <PaginationItem
                                 onClick={() => setPage(1)}
                                 disabled={page === 1}
-                            >
-                                <PaginationLink
-                                    first
+                            >{"<|"}</Button>
+                            {' '}
 
-                                />
-                            </PaginationItem>
-                            <PaginationItem
+                            <Button
+                                size='sm'
+                                color='success'
+
                                 disabled={page === 1}
                                 onClick={() => setPage((prev) => prev - 1)}
-                            >
-                                <PaginationLink
-                                    previous
-                                />
-                            </PaginationItem>
 
-                            <PaginationItem
+                            >{"<"}</Button>
+                            {' '}
+
+                            <Button
+                                size='sm'
+                                color='success'
+
                                 onClick={() => setPage((prev) => prev + 1)}
                                 disabled={paginator.currentPage === (paginator.pageCount)}
 
-                            >
-                                <PaginationLink
-                                    next
-                                />
-                            </PaginationItem>
-                            <PaginationItem
+
+                            >{">"}</Button>
+                            {' '}
+                            <Button
+                                size='sm'
+                                color='success'
 
                                 disabled={paginator.currentPage === (paginator.pageCount)}
                                 onClick={() => setPage(paginator.pageCount)}
+                            >{"|>"}</Button>
+                            {' '}
+
+
+                            <Badge
+                                className="text-dark"
+                                color="light"
+
                             >
-                                <PaginationLink
-                                    last
-                                />
-                            </PaginationItem>
-                        </Pagination> */}
-                    </div>
+                                {' '}{from} - {to}  of {paginator.itemCount}
+                            </Badge>
+
+                        </div>
+                    }
 
                     <div className='b-list'>
 

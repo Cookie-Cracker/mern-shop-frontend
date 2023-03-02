@@ -7,7 +7,7 @@ const useAuth = () => {
     // console.log('useAuth token: ', token)
     let isModerator = false
     let isAdmin = false
-    let status = "User"
+    let status = "user"
 
     if (token) {
         const decoded = jwtDecode(token)

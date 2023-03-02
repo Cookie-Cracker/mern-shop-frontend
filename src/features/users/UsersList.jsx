@@ -75,7 +75,7 @@ const UsersList = () => {
 
   useEffect(() => {
     if (isDelSuccess) {
-      successNotification("Success", `Item:  deleted!!!!`);
+      successNotification("Success", `User deleted.`);
       if (isCurrentUser) {
         navigate("/signin");
       }

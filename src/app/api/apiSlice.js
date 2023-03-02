@@ -1,8 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { setCredentials } from "../../features/auth/authSlice"
 
+const apiURL =
+    process.env.NODE_ENV === "production"
+        ? "https://mern-shop-api.onrender.com"
+        : "http://localhost:3900";
+
+
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://mern-shop-api.onrender.com',
+    baseUrl: apiURL,
     // baseUrl: 'http://localhost:3900',
     credentials: 'include',
     // credentials: 'same-origin',

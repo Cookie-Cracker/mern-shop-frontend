@@ -1,4 +1,5 @@
 import React from "react";
+import { Container } from "reactstrap";
 import Breadcrumbs from "./Breadcrumbs";
 import HeaderInfo from "./HeaderInfo";
 import HeaderNavigation from "./HeaderNavigation";
@@ -11,7 +12,7 @@ const Header = () => {
         <HeaderInfo />
         <HeaderNavigation />
         <ShopNavigation />
-        <Breadcrumbs />
+        {/* <Breadcrumbs /> */}
       </header>
     </>
   );

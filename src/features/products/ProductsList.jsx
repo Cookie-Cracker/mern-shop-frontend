@@ -9,9 +9,15 @@ import {
 import { confirmAlert } from "react-confirm-alert";
 import Datatable from "../../components/Common/DatatableBase";
 import { NoData } from "../../components/Common/NoData";
+import LoadingBar from "../../components/Common/Spinner/Loading";
 // import DataTable from 'react-data-table-component';
 
 export const ProductsList = () => {
+  const apiURL =
+    process.env.NODE_ENV === "production"
+      ? "https://mern-shop-api.onrender.com/"
+      : "http://localhost:3900/";
+
   const navigate = useNavigate();
 
   const {
@@ -33,7 +39,7 @@ export const ProductsList = () => {
         <div>
           <img
             // src={`http://localhost:3900/${row.image}`}
-            src={`https://mern-shop-api.onrender.com/${row.image}`}
+            src={`${apiURL}${row.image}`}
             alt={row.name}
             className="thumb"
           />
@@ -96,7 +102,7 @@ export const ProductsList = () => {
 
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = <LoadingBar />;
   } else if (isSuccess) {
     content = (
       <section className="products">

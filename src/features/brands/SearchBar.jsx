@@ -16,13 +16,16 @@ import {
   Button,
   Badge,
 } from "reactstrap";
+import { addListener } from "@reduxjs/toolkit";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   // const brandSearch = useSelector(selectCurrentSearch);
+
   const searchRef = useRef(null);
   const [brandCount, setBrandsCount] = useState(10);
-  const [search, setSearchValue] = useState("");
+  const currentSearch = useSelector(selectCurrentSearch);
+  const [search, setSearchValue] = useState(currentSearch);
 
   const location = useLocation();
   const path = location.pathname;
@@ -32,9 +35,13 @@ const SearchBar = () => {
     searchRef.current.focus();
   }, []);
 
-  // const onChangeSearch = (e) => {
-  //   setSearchValue(e.target.value);
-  // };
+  const onChangeSearch = (e) => {
+    const searchValue = e.target.value;
+    setSearchValue(searchValue);
+    if (searchValue.length === 0) {
+      dispatch(clearSearchBrand());
+    }
+  };
 
   const onSubmitSearch = (e) => {
     e.preventDefault();
@@ -48,8 +55,8 @@ const SearchBar = () => {
             <Col xs={"9"} md={"9"} lg={"10"}>
               <Input
                 id="search"
-                // onChange={onChangeSearch}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={onChangeSearch}
+                // onChange={(e) => setSearchValue(e.target.value)}
                 value={search}
                 innerRef={searchRef}
                 name="search"

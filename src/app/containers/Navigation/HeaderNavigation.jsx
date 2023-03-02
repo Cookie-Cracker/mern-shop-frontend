@@ -18,6 +18,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Badge,
+  Button,
 } from "reactstrap";
 import useAuth from "../../../hooks/useAuth";
 // import useAuth from "../../../hooks/useAuth";
@@ -46,18 +47,18 @@ const HeaderNavigation = (args) => {
       <NavbarBrand href="/">{app.name}</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
-        <Nav className="ms-auto" navbar>
+        <Nav className="ms-auto ml-4" navbar>
           <NavItem>
-            <NavLink onClick={() => alert("clicked cart")}>
-              <i className="bi bi-cart-fill cart-icon"></i> <span> (0)</span>
-            </NavLink>
+            <Button color="transparent" onClick={() => alert("Cart")}>
+              <i className="bi bi-cart-fill cart-icon"></i> <Badge>4</Badge>
+            </Button>
           </NavItem>
           <NavItem>
             <NavLink href="/shop">Shop</NavLink>
           </NavItem>
 
           {token ? (
-            <UncontrolledDropdown nav inNavbar>
+            <UncontrolledDropdown nav inNavbar direction="start">
               <DropdownToggle nav>
                 {!email ? (
                   "Welcome"

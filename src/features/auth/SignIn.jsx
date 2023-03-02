@@ -8,6 +8,7 @@ import { app } from "../../app/constants";
 import { useSignInMutation } from "./authApiSlice";
 import { setCredentials } from "./authSlice";
 import usePersist from "../../hooks/usePersist";
+import LoadingBar from "../../components/Common/Spinner/Loading";
 
 const SignIn = () => {
   const emailRef = useRef(null);
@@ -41,7 +42,8 @@ const SignIn = () => {
       dispatch(setCredentials({ accessToken }));
       setEmail("");
       setPassword("");
-      navigate("/dashboard");
+      navigate("/shop");
+      // navigate("/dashboard");
     } catch (err) {
       //   console.log("original status", err);
       if (err.data) {
@@ -55,7 +57,7 @@ const SignIn = () => {
   };
 
   const errClass = errMsg ? "errmsg" : "offscreen";
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingBar />;
 
   const handleEmailInput = (e) => setEmail(e.target.value);
   const handlePasswordInput = (e) => setPassword(e.target.value);
