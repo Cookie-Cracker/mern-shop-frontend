@@ -21,10 +21,13 @@ const productApiSlice = apiSlice.injectEndpoints({
         getProductsPaginated: builder.query({
             query: ({
                 name = '',
-                size = 10,
+                minPrice = 0,
+                maxPrice = 5000,
+                isActive = true,
                 page = 1,
-                isActive = true
-            }) => `/api/brand/search?name=${name}&page=${page}&size=${size}&active=${isActive}`,
+                size = 10
+            }) => `/api/product/search?name=${name}&active=${isActive}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&size=${size}`,
+            providesTags: [{ type: 'Product', id: 'LIST' }]
         })
     })
 })
@@ -32,6 +35,6 @@ const productApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetProductsQuery,
     useAddNewProductMutation,
-    useLazyGetProductsPaginatedQuery
+    useGetProductsPaginatedQuery
 
 } = productApiSlice

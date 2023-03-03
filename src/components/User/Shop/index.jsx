@@ -1,10 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { Row, Col } from "reactstrap";
-import ShopFilters from "./ShopFilters";
+import { PriceFilter } from "./ShopFilters";
+import { useGetProductsPaginatedQuery } from "../../../features/products/productsApiSlice";
+import LoadingBar from "../../Common/Spinner/Loading";
+import Product from "./Product";
 
 const Shop = () => {
   const { status } = useAuth();
+
+  const navigate = useNavigate();
+  const searchTerm = "";
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(500);
+
+  const {
+    data: products,
+    isFetching,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetProductsPaginatedQuery({
+    minPrice: minPrice,
+    maxPrice: maxPrice,
+    page: page,
+    size: pageSize,
+  });
+
+  let productsFound;
+  if (isLoading) {
+    productsFound = <LoadingBar />;
+  } else if (isSuccess) {
+    const { itemsList, paginator } = products;
+    productsFound = (
+      <Row>
+        <pre>{JSON.stringify(minPrice)}</pre>
+        <pre>{JSON.stringify(maxPrice)}</pre>
+
+        {itemsList.map((product) => {
+          console.log("product.name", product.name);
+          return <Product key={product._id} product={product} />;
+        })}
+      </Row>
+    );
+  }
+
   const content = (
     <div className="shop">
       <Row>
@@ -14,7 +58,7 @@ const Shop = () => {
           md={{ size: 12, order: 1 }}
           lg={{ size: 3, order: 1 }}
         >
-          <ShopFilters />
+          <PriceFilter setMinPrice={setMinPrice} setMaxPrice={setMaxPrice} />
         </Col>
         <Col
           xs={{ size: 12, order: 2 }}
@@ -31,7 +75,7 @@ const Shop = () => {
               lg={{ size: 6, order: 1 }}
               className="text-start text-md-left p-4 mt-3 mt-md-0 mb-1 mb-md-0"
             >
-              <span>Product Count: 128</span>
+              <span>Products:</span>
             </Col>
             <Col
               xs={{ size: 12, order: 2 }}
@@ -57,7 +101,7 @@ const Shop = () => {
             </Col>
           </Row>
 
-          <h5 className="text-center">No products yet</h5>
+          {productsFound}
         </Col>
       </Row>
     </div>

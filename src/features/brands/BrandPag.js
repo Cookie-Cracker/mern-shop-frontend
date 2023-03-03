@@ -26,7 +26,7 @@ const BrandPag = ({ brand }) => {
 
                 <h4 className='mb-0'>{brand.name}</h4>
             </div>
-            <p className='brand-desc mb-2'>{brand.description.slice(0, 150)}...</p>
+            <p className='description-italic mb-2'>{brand.description.slice(0, 150)}...</p>
 
         </Link>
     )
