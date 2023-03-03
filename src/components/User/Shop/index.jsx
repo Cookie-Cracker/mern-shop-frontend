@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Input, FormGroup, Label, Form } from "reactstrap";
 import { PriceFilter } from "./ShopFilters";
 import { useGetProductsPaginatedQuery } from "../../../features/products/productsApiSlice";
 import LoadingBar from "../../Common/Spinner/Loading";
 import Product from "./Product";
+import SearchBar from "../../../features/brands/SearchBar";
 
 const Shop = () => {
   const { status } = useAuth();
@@ -13,9 +14,13 @@ const Shop = () => {
   const navigate = useNavigate();
   const searchTerm = "";
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(4);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(500);
+
+  const fetchMore = () => {
+    setPageSize((prev) => prev + 2);
+  };
 
   const {
     data: products,
@@ -38,8 +43,13 @@ const Shop = () => {
     const { itemsList, paginator } = products;
     productsFound = (
       <Row>
-        <pre>{JSON.stringify(minPrice)}</pre>
-        <pre>{JSON.stringify(maxPrice)}</pre>
+        {/* <pre>{JSON.stringify(minPrice)}</pre>
+        <pre>{JSON.stringify(maxPrice)}</pre> */}
+        <div>
+          <button onClick={fetchMore} disabled={isLoading}>
+            Show More
+          </button>
+        </div>
 
         {itemsList.map((product) => {
           console.log("product.name", product.name);
@@ -83,9 +93,9 @@ const Shop = () => {
               md={{ size: 5, order: 2 }}
               lg={{ size: 2, order: 2 }}
               className="text-end pr-0 d-none d-md-block"
-            >
-              <span>Sort:</span>
-            </Col>
+            ></Col>
+            <SearchBar />
+
             <Col
               xs={{ size: 12, order: 2 }}
               sm={{ size: 12, order: 2 }}
@@ -93,11 +103,36 @@ const Shop = () => {
               lg={{ size: 4, order: 2 }}
               className="text-end"
             >
-              <select className="d-block text-end">
-                <option>More than</option>
-                <option>Less than</option>
-                <option>Equal than</option>
-              </select>
+              <div>
+                <div class="d-inline-flex mt-2">
+                  <div class="mr-2">
+                    <label for="from_year">
+                      <small>
+                        <strong>Search from year:</strong>
+                      </small>
+                    </label>
+                  </div>
+                  <div>
+                    <select
+                      name="from_year"
+                      class="form-control form-control-sm"
+                      id="from_year"
+                    >
+                      <option value="1980">1980 (default)</option>
+
+                      <option value="{{ year }}">185</option>
+                    </select>
+                  </div>
+                </div>
+                {/* <span className="">Sort By:</span>
+
+                <select className="form-select form-select-sm">
+                  <option>Relevance</option>
+                  <option>Most Recent</option>
+                  <option>Price Low to High</option>
+                  <option>Price High to Low</option>
+                </select> */}
+              </div>
             </Col>
           </Row>
 
