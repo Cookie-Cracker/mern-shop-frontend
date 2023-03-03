@@ -4,6 +4,7 @@ import { Form, Row, Col, Input, Label, FormGroup, List, ListGroup, DropdownMenu,
 import SubPage from '../../components/Manager/SubPage'
 import { useGetBrandsQuery } from '../brands/brandsApiSlice'
 import { useAddNewProductMutation } from './productsApiSlice'
+import { successNotification } from '../../components/Common/Notifications'
 
 const NewProductForm = () => {
 
@@ -58,6 +59,10 @@ const NewProductForm = () => {
     useEffect(() => {
         if (isSuccess) {
             seterrFieldError('')
+            successNotification('Product Added')
+
+            navigate('/dashboard/products')
+
         }
     }, [isSuccess]);
 
@@ -95,6 +100,7 @@ const NewProductForm = () => {
             formData.append('image', image)
 
             await addNewProduct(formData)
+
         }
         else {
             seterrFieldError('All Fields Required!!')

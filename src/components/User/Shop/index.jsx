@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import { Row, Col, Input, FormGroup, Label, Form } from "reactstrap";
+import {
+  Row,
+  Col,
+  Input,
+  FormGroup,
+  Label,
+  Form,
+  Spinner,
+  Button,
+} from "reactstrap";
 import { PriceFilter } from "./ShopFilters";
 import { useGetProductsPaginatedQuery } from "../../../features/products/productsApiSlice";
 import LoadingBar from "../../Common/Spinner/Loading";
@@ -14,7 +23,7 @@ const Shop = () => {
   const navigate = useNavigate();
   const searchTerm = "";
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(1);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(500);
 
@@ -45,16 +54,24 @@ const Shop = () => {
       <Row>
         {/* <pre>{JSON.stringify(minPrice)}</pre>
         <pre>{JSON.stringify(maxPrice)}</pre> */}
-        <div>
-          <button onClick={fetchMore} disabled={isLoading}>
-            Show More
-          </button>
-        </div>
 
         {itemsList.map((product) => {
           console.log("product.name", product.name);
           return <Product key={product._id} product={product} />;
         })}
+        <div className="mt-2 mb-2 text-center">
+          <Button color="warning" onClick={fetchMore} disabled={isLoading}>
+            {isLoading ? (
+              <Spinner color="danger" size={"sm"}>
+                Loading...
+              </Spinner>
+            ) : pageSize <= products.itemsList.length ? (
+              "More"
+            ) : (
+              "No More"
+            )}
+          </Button>
+        </div>
       </Row>
     );
   }
