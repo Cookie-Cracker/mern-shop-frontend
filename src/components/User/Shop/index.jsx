@@ -60,8 +60,8 @@ const Shop = () => {
           return <Product key={product._id} product={product} />;
         })}
         <div className="mt-2 mb-2 text-center">
-          <Button color="warning" onClick={fetchMore} disabled={isLoading}>
-            {isLoading ? (
+          <Button color="warning" onClick={fetchMore} disabled={isFetching}>
+            {isFetching ? (
               <Spinner color="danger" size={"sm"}>
                 Loading...
               </Spinner>
