@@ -11,6 +11,7 @@ import Datatable from "../../components/Common/DatatableBase";
 import { NoData } from "../../components/Common/NoData";
 import LoadingBar from "../../components/Common/Spinner/Loading";
 // import DataTable from 'react-data-table-component';
+import otherGenericImage from "../../assets/img/generic-250x250.jpg";
 
 export const ProductsList = () => {
   const apiURL =
@@ -39,7 +40,12 @@ export const ProductsList = () => {
         <div>
           <img
             // src={`http://localhost:3900/${row.image}`}
-            src={`${apiURL}${row.image}`}
+            src={
+              process.env.NODE_ENV === "production"
+                ? otherGenericImage
+                : `${apiURL}${row.image}`
+            }
+            // src={`${apiURL}${row.image}`}
             alt={row.name}
             className="thumb"
           />

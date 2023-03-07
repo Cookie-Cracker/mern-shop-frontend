@@ -9,6 +9,7 @@ import {
 import { Row, Col } from "reactstrap";
 import { useGetTopFiveLoginsQuery } from "../../../features/users/usersApiSlice";
 import LoadingBar from "../../Common/Spinner/Loading";
+import { wa } from "../../Common/Notifications";
 
 const Logins = ({ userid }) => {
   const {
@@ -33,6 +34,7 @@ const Logins = ({ userid }) => {
               <i className="fe-icon-award"></i>&nbsp;&nbsp;With this purchase
               you will earn <strong>2,549</strong> Reward Points.
             </div> */}
+
             <div className=" d-md-flex justify-content-between m-2">
               <div className="px-1 my-1">
                 <div>

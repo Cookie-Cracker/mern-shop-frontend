@@ -22,7 +22,7 @@ const Shop = () => {
   const currentProductSearch = useSelector(selectCurrentProductSearch);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(500);
 
@@ -64,9 +64,9 @@ const Shop = () => {
     productsFound = (
       <>
         <Row>
-          <pre>{JSON.stringify(minPrice)}</pre>
+          {/* <pre>{JSON.stringify(minPrice)}</pre>
           <pre>{JSON.stringify(maxPrice)}</pre>
-          <pre>{JSON.stringify(currentProductSearch)}</pre>
+          <pre>{JSON.stringify(currentProductSearch)}</pre> */}
           {itemsList.map((product) => {
             return <Product key={product._id} product={product} />;
           })}

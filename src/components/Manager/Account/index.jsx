@@ -20,6 +20,7 @@ import {
 import LoadingBar from "../../Common/Spinner/Loading";
 import profileImg from "../../../assets/img/avatar.png";
 import Logins from "./Logins";
+import { warnNotification } from "../../Common/Notifications";
 
 const Account = () => {
   const token = useSelector(selectCurrentToken);
@@ -74,7 +75,11 @@ const Account = () => {
                     <span>{user.phone}</span>
                   </div>
                 </CardBody>
-                <Button block color="success">
+                <Button
+                  block
+                  color="success"
+                  onClick={() => warnNotification("No Implemented Yet..")}
+                >
                   Edit
                 </Button>
               </div>
@@ -91,7 +96,11 @@ const Account = () => {
               <div>
                 <CardTitle className="d-flex justify-content-between alert alert-info">
                   <h4>Last Logins</h4>
-                  <Button>History</Button>
+                  <Button
+                    onClick={() => warnNotification("No Implemented Yet..")}
+                  >
+                    History
+                  </Button>
                 </CardTitle>
                 <Logins userid={user._id} />
               </div>

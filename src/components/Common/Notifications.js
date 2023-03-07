@@ -35,6 +35,22 @@ const errorNotification = (title, message) => {
 
     });
 }
+const warnNotification = (title, message) => {
+    return Store.addNotification({
+        title: title,
+        message: message,
+        type: "warning",
+        insert: "top",
+        container: "center",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+            duration: 2000,
+            onScreen: true
+        },
 
-export { successNotification, errorNotification }
+
+    });
+}
+export { successNotification, errorNotification, warnNotification }
 

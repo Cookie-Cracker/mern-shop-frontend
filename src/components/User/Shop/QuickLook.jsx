@@ -7,6 +7,7 @@ import {
   ModalFooter,
   Badge,
 } from "reactstrap";
+import otherGenericImage from "../../../assets/img/mike-petrucci-c9FQyqIECds-unsplash.jpg";
 
 const QuickLookModal = (args) => {
   const apiURL =
@@ -23,7 +24,12 @@ const QuickLookModal = (args) => {
         <div className="product-detail-modal-body">
           <div className="pics">
             <img
-              src={`${apiURL}${product.image}`}
+              src={
+                process.env.NODE_ENV === "production"
+                  ? otherGenericImage
+                  : `${apiURL}${product.image}`
+              }
+              // src={`${apiURL}${product.image}`}
               alt=""
               className="main-img"
             />

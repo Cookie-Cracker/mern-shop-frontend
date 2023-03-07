@@ -26,8 +26,9 @@ const Product = ({ product }) => {
                     <img
                         className='shop-img-card'
                         alt="Sample"
-                        // src={otherGenericImage}
-                        src={`${apiURL}${image}`}
+                        src={process.env.NODE_ENV === "production" ? otherGenericImage : `${apiURL}${image}`}
+                    // src={otherGenericImage}
+                    // src={`${apiURL}${image}`}
                     />
                     <CardBody>
                         <CardTitle tag="h6">
