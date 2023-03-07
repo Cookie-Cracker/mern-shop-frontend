@@ -1,6 +1,6 @@
 module.exports = {
     admin: [
-        { to: "/dashboard/accountdetails", name: "Account Details", prefix: "/dashboard" },
+        { to: "/dashboard/", name: "Account Details", prefix: "/dashboard" },
         { to: "/dashboard/products", name: "Products", prefix: "/dashboard" },
         { to: "/dashboard/categories", name: "Categories", prefix: "/dashboard" },
         { to: "/dashboard/brands", name: "Brand", prefix: "/dashboard" },

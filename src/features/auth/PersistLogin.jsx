@@ -27,7 +27,7 @@ const PersistLogin = () => {
         try {
           //const response =
           await refresh();
-          //const { accessToken } = response.data
+          // const { accessToken } = response.data
           setTrueSuccess(true);
         } catch (err) {
           // console.error(err);
@@ -60,6 +60,7 @@ const PersistLogin = () => {
     // console.log("success");
     content = <Outlet />;
   } else if (token && isUninitialized) {
+    console.log("token", token);
     //persist: yes, token: yes
     // console.log("token and uninit");
     // console.log(isUninitialized);

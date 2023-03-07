@@ -17,23 +17,26 @@ import BrandsList from './features/brands/BrandsList'
 import NewBrandForm from './features/brands/NewBrandForm'
 import Shop from './components/User/Shop'
 import EditBrand from './features/brands/EditBrand'
+import Roles from './features/users/Roles'
 
 function App() {
 
   return (
     <Routes>
 
+
       <Route path='/' element={<Layout />} >
         {/* public routes */}
 
         <Route index element={<HomePage />} />
-        <Route path="signin" element={<SignIn />} />
+        {/* <Route index element={<Shop />} /> */}
         <Route path='shop' element={<Shop />} />
+        <Route path="signin" element={<SignIn />} />
         <Route path='*' element={<Page404 />} />
 
 
         <Route element={<PersistLogin />}>
-          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Moderator]} />}>
 
 
             <Route path='dashboard' element={<DashLayout />}>
@@ -70,12 +73,13 @@ function App() {
 
             </Route>   {/* End DashBoard */}
           </Route>
-          {/* <Route path='*' element={<p>Error2</p>} /> */}
-          <Route path='*' element={<Page404 />} />
+
         </Route>
-        {/* End protected routes */}
-        <Route path='/404' element={<Page404 />} />
+        <Route path='*' element={<Page404 />} />
       </Route>
+      {/* End protected routes */}
+      <Route path='/404' element={<Page404 />} />
+
     </Routes>
   );
 }

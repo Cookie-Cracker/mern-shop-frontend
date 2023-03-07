@@ -15,6 +15,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'User', id: 'LIST' }]
             }
         }),
+        getMe: builder.query({
+            query: ({ id }) => ({
+                url: `/api/user/${id}`,
+                method: 'GET',
+
+            })
+        }),
         addNewUser: builder.mutation({
             query: initialUserData => ({
                 url: '/api/user/',
@@ -36,12 +43,24 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 // { type: 'User', id: arg.id }
                 { type: 'User', id: 'LIST' }
             ]
+        }),
+        getTopFiveLogins: builder.query({
+            query: ({
+                id,
+                page = 1,
+                size = 5
+            }) => `api/auth/loginstop5?id=${id}&page=${page}&size=${size}`
         })
+
+
     })
 })
 
 export const {
     useGetUsersQuery,
+    useGetMeQuery,
     useAddNewUserMutation,
-    useDeleteUserMutation } = usersApiSlice
+    useDeleteUserMutation,
+    useGetTopFiveLoginsQuery,
+} = usersApiSlice
 

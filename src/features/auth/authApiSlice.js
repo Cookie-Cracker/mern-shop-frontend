@@ -1,4 +1,5 @@
 import { apiSlice } from "../../app/api/apiSlice";
+
 import { logOut, setCredentials } from "./authSlice";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -8,8 +9,13 @@ export const authApiSlice = apiSlice.injectEndpoints({
                 url: '/api/auth/signin',
                 method: 'POST',
                 body: { ...credentials }
-            })
-        }),
+            }
+            ),
+
+        }
+
+
+        ),
         sendLogout: builder.mutation({
             query: () => ({
                 url: '/api/auth/logout',
@@ -22,6 +28,9 @@ export const authApiSlice = apiSlice.injectEndpoints({
                     // console.log('data:queryFulfilled', data)
                     dispatch(logOut())
                     dispatch(apiSlice.util.resetApiState())
+
+                    // dispatch(apiSlice.util.prefetch('brandsList', undefined, { force: true }))
+                    // dispatch(apiSlice.util.prefetch('productList', undefined, { force: true }))
 
                 } catch (error) {
                     console.log('error', error)

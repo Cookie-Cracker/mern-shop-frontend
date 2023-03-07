@@ -59,5 +59,6 @@ export const apiSlice = createApi({
     baseQuery: baseQueryWithReauth,
     //TODO: tag types
     tagTypes: ['User', 'Brand', 'Product'],
+    refetchOnReconnect: true,
     endpoints: builder => ({})
 })

@@ -26,7 +26,7 @@ const BrandsList = () => {
         error: searchError
     } = useGetBrandsPaginatedQuery({ brand: searchTerm, page, size: pageSize })
 
-    console.log('searchResult', searchResult)
+    // console.log('searchResult', searchResult)
     // const {
     //     data: searchResult,
     //     isFetching: isSearchLoading,
@@ -58,8 +58,8 @@ const BrandsList = () => {
         // console.log('',)
         const { itemsList, paginator } = searchResult.data
         // console.log('itemsList', itemsList)
-        console.log('paginator', paginator)
-        console.log('brands', searchResult)
+        // console.log('paginator', paginator)
+        // console.log('brands', searchResult)
         // const { ids } = searchResult
 
         // const list = brand === '' ?
@@ -88,72 +88,75 @@ const BrandsList = () => {
                     actionName="Add"
                     handleAction={() => navigate("/dashboard/brands/new")}
                 >
-                    <BrandSearch />
+                    {/* <BrandSearch /> */}
 
-                    <div className="pb-4">
+                    {/* <div className="pb-4">
                         {searchTerm && searchTerm.length > 0 && `Result for: ${searchTerm}${' '}`}
                         <Badge color="success">{paginator.itemCount}</Badge>
                         {" brands"}
-                    </div>
+                    </div> */}
 
-                    {(itemsList
-                        && itemsList.length > 0)
-                        && <div className='mb-2'>
-                            <span className='p-1 m-1'>Per Page:</span>
-                            <select className='p-1 m-1' onChange={(e) => setPageSize(e.target.value)}>
-                                {pageSizesOptions.map((size) =>
+                    {(itemsList && itemsList.length > 0)
+                        ? (
+                            <div className='mb-2'>
+                                <span className='p-1 m-1'>Per Page:</span>
+                                <select className='p-1 m-1' onChange={(e) => setPageSize(e.target.value)}>
+                                    {pageSizesOptions.map((size) =>
 
-                                    <option key={size} value={size}>{size}</option>)}
-                            </select>
+                                        <option key={size} value={size}>{size}</option>)}
+                                </select>
 
-                            <Button
-                                size='sm'
-                                color='success'
+                                <Button
+                                    size='sm'
+                                    color='success'
 
-                                onClick={() => setPage(1)}
-                                disabled={page === 1}
-                            >{"<|"}</Button>
-                            {' '}
+                                    onClick={() => setPage(1)}
+                                    disabled={page === 1}
+                                >{"<|"}</Button>
+                                {' '}
 
-                            <Button
-                                size='sm'
-                                color='success'
+                                <Button
+                                    size='sm'
+                                    color='success'
 
-                                disabled={page === 1}
-                                onClick={() => setPage((prev) => prev - 1)}
+                                    disabled={page === 1}
+                                    onClick={() => setPage((prev) => prev - 1)}
 
-                            >{"<"}</Button>
-                            {' '}
+                                >{"<"}</Button>
+                                {' '}
 
-                            <Button
-                                size='sm'
-                                color='success'
+                                <Button
+                                    size='sm'
+                                    color='success'
 
-                                onClick={() => setPage((prev) => prev + 1)}
-                                disabled={paginator.currentPage === (paginator.pageCount)}
-
-
-                            >{">"}</Button>
-                            {' '}
-                            <Button
-                                size='sm'
-                                color='success'
-
-                                disabled={paginator.currentPage === (paginator.pageCount)}
-                                onClick={() => setPage(paginator.pageCount)}
-                            >{"|>"}</Button>
-                            {' '}
+                                    onClick={() => setPage((prev) => prev + 1)}
+                                    disabled={paginator.currentPage === (paginator.pageCount)}
 
 
-                            <Badge
-                                className="text-dark"
-                                color="light"
+                                >{">"}</Button>
+                                {' '}
+                                <Button
+                                    size='sm'
+                                    color='success'
 
-                            >
-                                {' '}{from} - {to}  of {paginator.itemCount}
-                            </Badge>
+                                    disabled={paginator.currentPage === (paginator.pageCount)}
+                                    onClick={() => setPage(paginator.pageCount)}
+                                >{"|>"}</Button>
+                                {' '}
 
-                        </div>
+
+                                <Badge
+                                    className="text-dark"
+                                    color="light"
+
+                                >
+                                    {' '}{from} - {to}  of {paginator.itemCount}
+                                </Badge>
+
+                            </div>)
+                        : (
+                            <div className='text-center'>No Data</div>
+                        )
                     }
 
                     <div className='b-list'>

@@ -4,13 +4,12 @@ import jwtDecode from 'jwt-decode'
 
 const useAuth = () => {
     const token = useSelector(selectCurrentToken)
-    // console.log('useAuth token: ', token)
+    const cookiet = JSON.parse(localStorage.getItem('at'))
     let isModerator = false
     let isAdmin = false
-    let status = "user"
-
-    if (token) {
-        const decoded = jwtDecode(token)
+    let status = "User"
+    if (cookiet) {
+        const decoded = jwtDecode(cookiet)
         const { email, roles } = decoded.UserInfo
 
 
@@ -26,7 +25,7 @@ const useAuth = () => {
 
     }
 
-    return { email: '', roles: [], isModerator, isAdmin, status }
+    return { email: 'Not Logged', roles: [], isModerator, isAdmin, status }
 
 
 }

@@ -4,7 +4,7 @@ import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 const productsAdapter = createEntityAdapter({})
 const initialState = productsAdapter.getInitialState()
 
-const productApiSlice = apiSlice.injectEndpoints({
+export const productApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getProducts: builder.query({
             query: () => '/api/product/',
@@ -25,7 +25,7 @@ const productApiSlice = apiSlice.injectEndpoints({
                 maxPrice = 5000,
                 isActive = true,
                 page = 1,
-                size = 10
+                size = 5
             }) => `/api/product/search?name=${name}&active=${isActive}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&size=${size}`,
             providesTags: [{ type: 'Product', id: 'LIST' }]
         })

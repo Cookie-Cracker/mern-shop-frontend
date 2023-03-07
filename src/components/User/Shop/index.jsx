@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import {
   Row,
@@ -15,13 +15,12 @@ import { PriceFilter } from "./ShopFilters";
 import { useGetProductsPaginatedQuery } from "../../../features/products/productsApiSlice";
 import LoadingBar from "../../Common/Spinner/Loading";
 import Product from "./Product";
-import SearchBar from "../../../features/brands/SearchBar";
+import { selectCurrentProductSearch } from "../../../features/products/productSlice";
+import { useSelector } from "react-redux";
 
 const Shop = () => {
-  const { status } = useAuth();
+  const currentProductSearch = useSelector(selectCurrentProductSearch);
 
-  const navigate = useNavigate();
-  const searchTerm = "";
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(1);
   const [minPrice, setMinPrice] = useState(0);
@@ -36,29 +35,42 @@ const Shop = () => {
     isFetching,
     isLoading,
     isSuccess,
-    isError,
-    error,
-  } = useGetProductsPaginatedQuery({
-    minPrice: minPrice,
-    maxPrice: maxPrice,
-    page: page,
-    size: pageSize,
-  });
+  } = useGetProductsPaginatedQuery(
+    // {
+    //   refetchOnFocus: true,
+    //   refetchOnMountOrArgChange: true,
+    //   pollingInterval: 15000,
+    // },
+    {
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      name: currentProductSearch,
+      page: page,
+      size: pageSize,
+    }
+  );
 
   let productsFound;
   if (isLoading) {
-    productsFound = <LoadingBar />;
+    // productsFound = (<LoadingBar />)
+    productsFound = (
+      <>
+        <LoadingBar />
+      </>
+    );
   } else if (isSuccess) {
     const { itemsList, paginator } = products;
+    console.log("itemsList", itemsList.length);
     productsFound = (
-      <Row>
-        {/* <pre>{JSON.stringify(minPrice)}</pre>
-        <pre>{JSON.stringify(maxPrice)}</pre> */}
-
-        {itemsList.map((product) => {
-          console.log("product.name", product.name);
-          return <Product key={product._id} product={product} />;
-        })}
+      <>
+        <Row>
+          <pre>{JSON.stringify(minPrice)}</pre>
+          <pre>{JSON.stringify(maxPrice)}</pre>
+          <pre>{JSON.stringify(currentProductSearch)}</pre>
+          {itemsList.map((product) => {
+            return <Product key={product._id} product={product} />;
+          })}
+        </Row>
         <div className="mt-2 mb-2 text-center">
           <Button color="warning" onClick={fetchMore} disabled={isFetching}>
             {isFetching ? (
@@ -68,11 +80,11 @@ const Shop = () => {
             ) : pageSize <= products.itemsList.length ? (
               "More"
             ) : (
-              "No More"
+              "No More Products"
             )}
           </Button>
         </div>
-      </Row>
+      </>
     );
   }
 
@@ -93,62 +105,54 @@ const Shop = () => {
           md={{ size: 12, order: 2 }}
           lg={{ size: 9, order: 2 }}
         >
-          {/* <div class="text-bg-dark p-3">Header</div> */}
           <Row className="align-items-center mx-0 mb-4 mt-4 mt-lg-0 py-3 py-lg-0 bg-white shop-toolbar">
             <Col
               xs={{ size: 12, order: 1 }}
               sm={{ size: 12, order: 1 }}
               md={{ size: 5, order: 1 }}
               lg={{ size: 6, order: 1 }}
-              className="text-start text-md-left p-4 mt-3 mt-md-0 mb-1 mb-md-0"
+              className="text-start text-md-left p-2 mt-3 mt-md-0 mb-1 mb-md-0"
             >
-              <span>Products:</span>
+              {isSuccess && products && products.itemsList.length > 0 && (
+                <span>
+                  {products.itemsList.length} results for{" "}
+                  {currentProductSearch ? (
+                    <span>{`'${currentProductSearch}'`}</span>
+                  ) : (
+                    "Products"
+                  )}
+                </span>
+              )}
             </Col>
             <Col
               xs={{ size: 12, order: 2 }}
               sm={{ size: 12, order: 2 }}
               md={{ size: 5, order: 2 }}
               lg={{ size: 2, order: 2 }}
-              className="text-end pr-0 d-none d-md-block"
-            ></Col>
-            <SearchBar />
+              className="text-start p-2"
+            >
+              Something
+            </Col>
 
             <Col
               xs={{ size: 12, order: 2 }}
               sm={{ size: 12, order: 2 }}
               md={{ size: 5, order: 2 }}
               lg={{ size: 4, order: 2 }}
-              className="text-end"
+              className="text-start"
             >
-              <div>
-                <div class="d-inline-flex mt-2">
-                  <div class="mr-2">
-                    <label for="from_year">
-                      <small>
-                        <strong>Search from year:</strong>
-                      </small>
-                    </label>
-                  </div>
-                  <div>
-                    <select
-                      name="from_year"
-                      class="form-control form-control-sm"
-                      id="from_year"
-                    >
-                      <option value="1980">1980 (default)</option>
-
-                      <option value="{{ year }}">185</option>
-                    </select>
-                  </div>
+              <div class="d-inline-flex align-items-center">
+                <label htmlFor="sortby">
+                  <small>Sort By:</small>
+                </label>
+                <div className="p-2">
+                  <select name="sortby" class="form-control form-control-sm ">
+                    <option>A - Z</option>
+                    <option>Most Recent</option>
+                    <option>Price Low to High</option>
+                    <option>Price High to Low</option>
+                  </select>
                 </div>
-                {/* <span className="">Sort By:</span>
-
-                <select className="form-select form-select-sm">
-                  <option>Relevance</option>
-                  <option>Most Recent</option>
-                  <option>Price Low to High</option>
-                  <option>Price High to Low</option>
-                </select> */}
               </div>
             </Col>
           </Row>

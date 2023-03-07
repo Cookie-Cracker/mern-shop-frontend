@@ -5,7 +5,14 @@ import {
   clearSearchBrand,
   searchBrand,
   selectCurrentSearch,
-} from "./brandSlice";
+} from "../../../features/brands/brandSlice";
+
+import {
+  searchProduct,
+  clearSearchProduct,
+  selectCurrentProductSearch,
+} from "../../../features/products/productSlice";
+
 import {
   FormGroup,
   Input,
@@ -40,19 +47,21 @@ const SearchBar = () => {
     setSearchValue(searchValue);
     if (searchValue.length === 0) {
       dispatch(clearSearchBrand());
+      dispatch(clearSearchProduct());
     }
   };
 
   const onSubmitSearch = (e) => {
     e.preventDefault();
     path === "/dashboard/brands" && dispatch(searchBrand(search));
+    path === "/shop" && dispatch(searchProduct(search));
   };
   return (
     <>
-      <div className="pb-3 flex">
+      <div className=" flex">
         <Form onSubmit={onSubmitSearch}>
           <Row className="row-cols-lg-auto g-3 align-items-center">
-            <Col xs={"9"} md={"9"} lg={"10"}>
+            <Col xs={"10"} md={"9"} lg={"9"}>
               <Input
                 id="search"
                 onChange={onChangeSearch}
@@ -60,13 +69,13 @@ const SearchBar = () => {
                 value={search}
                 innerRef={searchRef}
                 name="search"
-                placeholder="Search brand..."
+                placeholder="Search ..."
                 type="search"
               />
             </Col>
 
-            <Col xs={"3"} md={"3"} lg={"2"}>
-              <Button block type="submit">
+            <Col xs={"2"} md={"3"} lg={"3"}>
+              <Button type="submit" size="sm">
                 <i className="bi bi-search"></i>
               </Button>
             </Col>
