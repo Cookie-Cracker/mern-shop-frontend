@@ -30,6 +30,32 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
                 } else return [{ type: 'Brand', id: 'LIST' }]
             },
         }),
+        getInactiveBrands: builder.query({
+            query: () => ({
+                url: '/api/brand/',
+                validateStatus: (response, result) => {
+                    return response.status === 200 && !result.isError
+                },
+            }),
+            transformResponse: responseData => {
+                const loadedBrands = responseData.map(brand => {
+                    brand.id = brand._id
+                    return brand
+                });
+                return brandsAdapter.setAll(initialState, loadedBrands)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Brand', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Brand', id }))
+                    ]
+                } else return [{ type: 'Brand', id: 'LIST' }]
+            },
+        }),
+        getBrandById: builder.query({
+            query: (id) => `api/brand/${id}`
+        }),
 
         addNewBrand: builder.mutation({
             query: initialBrandData => ({
@@ -89,14 +115,8 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
         }),
 
         getBrandsPaginated: builder.query({
-            query: ({ brand = '', size = 10, page = 1, isActive = true }) => `/api/brand/search?brand=${brand}&page=${page}&size=${size}&active=${isActive}`,
-            // transformResponse: ({data}) => {
-            //     const loadedBrands = data.itemsList.map(brand => {
-            //         brand.id = brand._id
-            //         return brand
-            //     });
-            //     return brandsAdapter.setAll(initialState, loadedBrands)
-            // },
+            query: ({ brand = '', size = 5, page = 1, isActive = true }) => `/api/brand/search?brand=${brand}&page=${page}&size=${size}&isActive=${isActive}`,
+
             providesTags: (result, error, arg) => {
                 if (result?.ids) {
                     return [
@@ -113,6 +133,7 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetBrandsQuery,
+    useGetBrandByIdQuery,
     useAddNewBrandMutation,
     useUpdateBrandMutation,
     useDeleteBrandMutation,

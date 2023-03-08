@@ -8,18 +8,12 @@ import SubPage from '../../components/Manager/SubPage';
 
 
 const EditBrandForm = ({ brand }) => {
+    console.log('brand.id', brand.id)
     const navigate = useNavigate()
     const [name, setName] = useState(brand.name);
     const [description, setDescription] = useState(brand.description);
     const [isActive, setIsActive] = useState(brand.isActive);
 
-    const onNameChange = e => setName(e.target.value)
-    const onDescriptionChange = e => setDescription(e.target.value)
-    const onIsActiveChange = e => setIsActive(e.target.value)
-
-    // const [updateBrand, {
-
-    // }] = 
 
     const handleSubmit = () => {
 
@@ -61,7 +55,7 @@ const EditBrandForm = ({ brand }) => {
         onSubmit: async values => {
             // alert(JSON.stringify(values, null, 2));
             const { name, description, isActive } = formik.values
-            await updateBrand({ id: brand.id, name: name, description: description, isActive: isActive })
+            await updateBrand({ id: brand._id, name: name, description: description, isActive: isActive })
         },
 
 
@@ -82,78 +76,79 @@ const EditBrandForm = ({ brand }) => {
     }, [isSuccess, navigate]);
 
     let edit_brand_form = (
+        <>
+            <pre>{JSON.stringify(error?.message)}</pre>
+            <form onSubmit={formik.handleSubmit}>
+                <Row>
 
+                    <Col xs='12'>
+                        <FormGroup>
+                            <Label for='name'>Name</Label>
+                            <Input
+                                id='name'
+                                name='name'
 
-        <form onSubmit={formik.handleSubmit}>
-            <Row>
-
-                <Col xs='12'>
-                    <FormGroup>
-                        <Label for='name'>Name</Label>
-                        <Input
-                            id='name'
-                            name='name'
-
-                            type='text'
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            placeholder='Brand Name'
-
-                        />
-                        {formik.errors.name && formik.touched.name ? <p className='errmsg'>{formik.errors.name}</p> : null}
-                    </FormGroup>
-
-                </Col>
-                <Col xs='12' md='12'>
-                    <FormGroup>
-                        <Label for='description'>Description</Label>
-                        <Input
-                            id='description'
-                            type='textarea'
-                            value={formik.values.description}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            rows='4'
-                            name='description'
-                            placeholder='Description'
-
-                        />
-
-                        {formik.errors.description && formik.touched.description ? <p className='errmsg'>{formik.errors.description}</p> : null}
-
-                    </FormGroup>
-                </Col>
-                <Col xs='12' lg='12'>
-
-                    {/* TODO: create component */}
-                    <FormGroup>
-                        <div className="form-check form-switch form-control-lg">
-                            {/* <label className="form-check-label fs-6" for="flexSwitchCheckDefault">Active?</label> */}
-                            <Label for='isActive'><span className='fs-6'>Is Active?</span></Label>
-                            <input
-                                className="form-check-input "
-                                type="checkbox"
-                                role="switch"
-                                // id="flexSwitchCheckDefault" 
-                                id="isActive"
-                                name='isActive'
-                                // checked={isActive}
-
-                                checked={formik.values.isActive}
+                                type='text'
+                                value={formik.values.name}
                                 onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                placeholder='Brand Name'
 
                             />
-                        </div>
-                    </FormGroup>
-                </Col>
+                            {formik.errors.name && formik.touched.name ? <p className='errmsg'>{formik.errors.name}</p> : null}
+                        </FormGroup>
+
+                    </Col>
+                    <Col xs='12' md='12'>
+                        <FormGroup>
+                            <Label for='description'>Description</Label>
+                            <Input
+                                id='description'
+                                type='textarea'
+                                value={formik.values.description}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                rows='4'
+                                name='description'
+                                placeholder='Description'
+
+                            />
+
+                            {formik.errors.description && formik.touched.description ? <p className='errmsg'>{formik.errors.description}</p> : null}
+
+                        </FormGroup>
+                    </Col>
+                    <Col xs='12' lg='12'>
+
+                        {/* TODO: create component */}
+                        <FormGroup>
+                            <div className="form-check form-switch form-control-lg">
+                                {/* <label className="form-check-label fs-6" for="flexSwitchCheckDefault">Active?</label> */}
+                                <Label for='isActive'><span className='fs-6'>Is Active?</span></Label>
+                                <input
+                                    className="form-check-input "
+                                    type="checkbox"
+                                    role="switch"
+                                    // id="flexSwitchCheckDefault" 
+                                    id="isActive"
+                                    name='isActive'
+                                    // checked={isActive}
+
+                                    checked={formik.values.isActive}
+                                    onChange={formik.handleChange}
+
+                                />
+                            </div>
+                        </FormGroup>
+                    </Col>
 
 
-            </Row>
-            {/* <p className='errmsg'>{errFieldError}</p> */}
+                </Row>
+                {/* <p className='errmsg'>{errFieldError}</p> */}
 
-            <Button type='submit' block color='success'>Save</Button>
-        </form>
+                <Button type='submit' block color='success'>Save</Button>
+            </form>
+        </>
 
     )
     const content = (

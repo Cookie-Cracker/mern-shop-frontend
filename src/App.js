@@ -13,11 +13,10 @@ import Page404 from './components/Common/Page404'
 import Account from './components/Manager/Account'
 import { ProductsList } from './features/products/ProductsList'
 import NewProductForm from './features/products/NewProductForm'
-import BrandsList from './features/brands/BrandsList'
+import BrandsList from './features/brands/Brands'
 import NewBrandForm from './features/brands/NewBrandForm'
 import Shop from './components/User/Shop'
 import EditBrand from './features/brands/EditBrand'
-import Roles from './features/users/Roles'
 
 function App() {
 
