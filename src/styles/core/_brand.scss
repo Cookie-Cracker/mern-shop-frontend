@@ -46,3 +46,15 @@
     }
   }
 }
+.brand-toggle {
+  font-size: xx-large;
+  &.active {
+    color: $theme-green;
+  }
+  &.inactive {
+    color: $theme-light-black;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

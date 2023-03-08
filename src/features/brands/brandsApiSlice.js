@@ -83,7 +83,7 @@ export const brandsApiSlice = apiSlice.injectEndpoints({
             ]
         }),
 
-        deleteBrand: builder.mutation({
+        toggleActive: builder.mutation({
             query: ({ id }) => ({
                 url: '/api/brand/',
                 method: 'DELETE',
@@ -136,7 +136,7 @@ export const {
     useGetBrandByIdQuery,
     useAddNewBrandMutation,
     useUpdateBrandMutation,
-    useDeleteBrandMutation,
+    useToggleActiveMutation,
     useGetBrandsByTitleQuery,
     useGetBrandsPaginatedQuery,
 } = brandsApiSlice
