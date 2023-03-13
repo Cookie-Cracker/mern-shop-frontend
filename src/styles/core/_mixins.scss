@@ -7,6 +7,13 @@
   display: flex;
 }
 
+@mixin transition($speed: $layout-transition-speed) {
+  -webkit-transition: all $speed cubic-bezier(0.075, 0.82, 0.165, 1);
+  -moz-transition: all $speed cubic-bezier(0.075, 0.82, 0.165, 1);
+  -o-transition: all $speed cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: all $speed cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
 @mixin center() {
   justify-content: center;
   align-items: center;

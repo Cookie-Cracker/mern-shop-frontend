@@ -1,0 +1,76 @@
+// .mini-cart-hidden {
+//   visibility: hidden;
+//   position: fixed;
+//   top: 0;
+//   right: -100%;
+//   background-color: $white;
+//   height: 100%;
+//   width: 470px;
+//   z-index: 1000;
+//   @include transition($layout-transition-speed);
+// }
+// .mini-cart-open {
+//   visibility: visible;
+//   position: fixed;
+//   top: 0;
+//   right: 0;
+//   background-color: $white;
+//   height: 100%;
+//   width: 470px;
+//   z-index: 1000;
+//   @include transition($layout-transition-higher-speed);
+// }
+
+.mini-cart {
+  visibility: visible;
+  position: fixed;
+  top: 0;
+  right: 0%;
+  background-color: $white;
+  height: 100%;
+  width: 470px;
+  z-index: 1000;
+  @include transition(1s);
+  &.hidden {
+    visibility: hidden;
+    right: -100%;
+    @include transition(1s);
+  }
+}
+.cart {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  .cart-header {
+    border-bottom: $border-default;
+    text-align: right;
+    justify-content: flex-end;
+    height: 50px;
+  }
+  .cart-body {
+    flex: 1;
+    max-height: 100%;
+    background-color: $white;
+  }
+  .cart-empty {
+    height: 100%;
+    @include flex();
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    i {
+      font-size: 4rem;
+      color: $theme-green;
+    }
+    p {
+      font-weight: $font-weight-normal;
+      margin-top: 12px;
+    }
+  }
+  .cart-summary {
+  }
+  .cart-checkout {
+    background-color: $white;
+    border-top: $border-default;
+  }
+}
